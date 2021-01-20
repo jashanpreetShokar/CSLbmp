@@ -15,3 +15,5 @@ CSLbmp bmp = loadImage("image-8-bit.bmp");
 DrawImage(&bmp, renderer);
 // SDL_RenderPresent
 ```
+
+JASHANPREET SHOKAR 2021 (C)
