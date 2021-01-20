@@ -8,11 +8,12 @@ don't use this code, it's mostly for learning purposes.
 #SETUP
 very easy setup,
 ```C
-CSLbmp_t bmp = loadImage("image-8-bit.bmp");
-// .... do your renderer code, and everything else.
+CSLbmp_t bmp_img = CSLBMP_loadimage("image_8bit.bmp");
+CSLBMP_setposition(100 / 2, 100 / 2,&bmp_img);
+ // .... do your renderer code, and everything else.
 
 // SDL_RenderClear
-DrawImage(&bmp, renderer);
+CSLBMP_draw(&bmp_img, win.get_renderer());
 // SDL_RenderPresent
 ```
 
