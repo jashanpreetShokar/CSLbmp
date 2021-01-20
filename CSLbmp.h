@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 /*
-this code shouldn't be used. Only for learning use. 
+this code shouldn't be used. Only for learning use.
 
 */
 
@@ -16,11 +16,17 @@ typedef struct CSLbmp
 	int width, height;
 	SDL_Color color;
 	Uint32 data;
+	int x, y;
 } CSLbmp_t;
 
 
 // https://stackoverflow.com/questions/53033971/how-to-get-the-color-of-a-specific-pixel-from-sdl-surface
-Uint32 getpixel(SDL_Surface* surface, int x, int y)
+void CSLBMP_setposition(int x, int y, CSLbmp_t* pos)
+{
+	pos->x = x;
+	pos->y = y;
+}
+Uint32 CSLBMP_getpixel(SDL_Surface* surface, int x, int y)
 {
 	int bpp = surface->format->BytesPerPixel;
 	/* Here p is the address to the pixel we want to retrieve */
@@ -52,17 +58,18 @@ Uint32 getpixel(SDL_Surface* surface, int x, int y)
 	}
 }
 
-CSLbmp_t loadImage(const char* string)
+CSLbmp_t CSLBMP_loadimage(const char* string)
 {
 	CSLbmp_t get;
 	get = { 0 };
+	
 
 	get.pixels = SDL_LoadBMP(string);
 	if (get.pixels == NULL) {
 		printf("ERROR: %s\n", SDL_GetError());
 		exit(100);
 	}
- 	get.pf = get.pixels->format;
+	get.pf = get.pixels->format;
 	if (get.pf->BitsPerPixel != 8) {
 		printf("ERROR:: Wasn't 8 BITS. \n");
 		exit(100);
@@ -71,17 +78,17 @@ CSLbmp_t loadImage(const char* string)
 	get.width = get.pixels->w;
 	get.height = get.pixels->h;
 	return get;
- }
-void DrawImage(CSLbmp_t* structure , SDL_Renderer* renderer) {
+}
+void CSLBMP_draw(CSLbmp_t* structure, SDL_Renderer* renderer) {
 	for (int x = 0; x < structure->width; x++) {
 		for (int y = 0; y < structure->height; y++) {
 
 
-			structure->data = getpixel(structure->pixels, x, y);
-			SDL_GetRGBA(structure->data, structure->pf, &structure->color.r, &structure->color.g, &structure->color.b,&structure->color.a);
+			structure->data = CSLBMP_getpixel(structure->pixels, x, y);
+			SDL_GetRGBA(structure->data, structure->pf, &structure->color.r, &structure->color.g, &structure->color.b, &structure->color.a);
 			SDL_SetRenderDrawColor(renderer, structure->color.r, structure->color.g, structure->color.b, structure->color.a);
 
-			SDL_RenderDrawPoint(renderer, x, y);
+			SDL_RenderDrawPoint(renderer, x + structure->x, y + structure->y);
 		}
 	}
 }
