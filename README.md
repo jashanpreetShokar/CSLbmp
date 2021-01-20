@@ -17,4 +17,4 @@ CSLBMP_draw(&bmp_img, win.get_renderer());
 // SDL_RenderPresent
 ```
 
-JASHANPREET SHOKAR 2021 (C)
+
