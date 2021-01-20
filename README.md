@@ -8,7 +8,7 @@ don't use this code, it's mostly for learning purposes.
 #SETUP
 very easy setup,
 ```C
-CSLbmp bmp = loadImage("image-8-bit.bmp");
+CSLbmp_t bmp = loadImage("image-8-bit.bmp");
 // .... do your renderer code, and everything else.
 
 // SDL_RenderClear
